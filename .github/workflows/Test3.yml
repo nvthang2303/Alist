@@ -51,6 +51,6 @@ jobs:
           
       - name: Auto build TN (VIET)
         run: |
-          cd HyperTN
+          cd HyperTN_Code
            sudo chmod 777 -R *
            sudo bash BuildTN.sh ${{ github.event.inputs.ROM_URL }}
