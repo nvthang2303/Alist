@@ -47,7 +47,7 @@ jobs:
 
       - name: Clone Git TN
         run: |
-          git clone -b 2.6T https://${{ secrets.TNKEY }}@github.com/nvthang2303/HyperTN.git   > /dev/null 2>&1
+          git clone -b 2.6T https://${{ secrets.TNKEY }}@github.com/nvthang2303/HyperTN_Code.git   > /dev/null 2>&1
           
       - name: Auto build TN (VIET)
         run: |
