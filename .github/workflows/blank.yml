@@ -1,4 +1,4 @@
-name: TN Test4 Auto Build
+name: TN Test K70 Auto Build
 
 on:
   workflow_dispatch:
