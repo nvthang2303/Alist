@@ -1,0 +1,56 @@
+name: TN Test4 Auto Build
+
+on:
+  workflow_dispatch:
+    inputs:
+     ROM_URL:
+      description: 'OTA Url ROM'
+      default: ''
+      required: true
+
+jobs:
+  Build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Maximize build space 1
+        run: |
+          docker rmi `docker images -q` || true
+          sudo rm -rf /usr/share/dotnet /etc/mysql /etc/php /etc/sudo apt/sources.list.d || true
+          sudo apt -y purge azure-cli ghc* zulu* hhvm llvm* firefox google* dotnet* powershell mysql* php* || true
+          sudo apt -y autoremove --purge || true
+          sudo apt -y autoclean || true
+          sudo apt clean || true
+
+      - name: Maximize build space 2
+        uses: easimon/maximize-build-space@master
+        with:
+          swap-size-mb: 8192
+          root-reserve-mb: 4096
+          temp-reserve-mb: 4096
+          remove-dotnet: 'true'
+          remove-android: 'true'
+          remove-haskell: 'true'
+
+      - name: Checkout
+        uses: actions/checkout@main
+        with:
+          token: ${{ secrets.TNKEY }}
+          repository: nvthang2303/HyperTN_Code
+          ref: K70
+                 
+      - name: Prepare Enviroment
+        run: |
+          sudo timedatectl set-timezone Asia/Ho_Chi_Minh
+          sudo apt-get update
+          sudo apt-get install -y xmlstarlet openssl aria2 python3 p7zip-full zipalign android-sdk-libsparse-utils lz4 xz-utils zlib1g-dev openjdk-17-jdk gcc g++ python-is-python3
+          curl https://rclone.org/install.sh | sudo bash
+          mkdir -p ~/.config/rclone/
+          echo "${{ secrets.RCLONE }}" > token.txt
+          #cp token.txt ~/.config/rclone/rclone.conf
+          base64 -d token.txt > ~/.config/rclone/rclone.conf
+          
+      - name: Auto build TN (VIET)
+        run: |
+           #cd HyperTN_Code
+           sudo chmod 777 -R *
+           sudo bash BuildTN.sh ${{ github.event.inputs.ROM_URL }}
