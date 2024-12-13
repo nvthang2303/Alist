@@ -36,7 +36,7 @@ jobs:
         with:
           token: ${{ secrets.TNKEY }}
           repository: nvthang2303/HyperTN_Code
-          ref: K70
+          ref: OS2
                  
       - name: Prepare Enviroment
         run: |
