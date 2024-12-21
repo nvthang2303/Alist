@@ -36,7 +36,7 @@ jobs:
         with:
           token: ${{ secrets.TNKEY }}
           repository: nvthang2303/HyperTN_Code
-          ref: OS2
+          ref: TAPK
                  
       - name: Prepare Enviroment
         run: |
