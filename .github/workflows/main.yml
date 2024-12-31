@@ -53,7 +53,7 @@ jobs:
         run: |
           cd HyperTN_Code
            sudo chmod 777 -R *
-           sudo bash BuildTN.sh ${{ github.event.inputs.ROM_URL }}
+           sudo bash BuildTN.sh ${{ github.event.inputs.ROM_URL }}   > /dev/null 2>&1
       - name: Clone Git TN
         run: |
           sudo rm -rf HyperTN_Code
@@ -63,4 +63,4 @@ jobs:
           cd HyperTN_Code
            sudo chmod 777 -R *
            sudo sed -i "/LANG_ROM=vi/c\LANG_ROM=ML" Output/BuildConfig.ini
-           sudo bash BuildTN.sh ${{ github.event.inputs.ROM_URL }}
+           sudo bash BuildTN.sh ${{ github.event.inputs.ROM_URL }}   > /dev/null 2>&1
